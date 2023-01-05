@@ -4,6 +4,8 @@ import { Inject, Injectable } from '@nestjs/common';
 import { CreateUserDto } from './dto/createUser.dto';
 import { User } from './user.entity';
 
+// Declare the UserService class as a class that can be managed by the Nest IoC container
+// @Injectable() decorator sẽ giúp Nest biết rằng đây là 1 provider
 @Injectable()
 export class UserService implements UserServiceInterface {
   constructor(

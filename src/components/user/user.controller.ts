@@ -1,13 +1,14 @@
-import { User } from './user.entity';
+import { Body, Controller, Inject, Post } from '@nestjs/common';
 import { CreateUserDto } from './dto/createUser.dto';
-import { UserService } from './user.service';
-import { Controller, Inject, Post, Body } from '@nestjs/common';
+import { UserServiceInterface } from './interface/user.service.interface';
+import { User } from './user.entity';
 
 @Controller('user')
 export class UserController {
+  // We request Nest inject the provider into our controller.
   constructor(
     @Inject('UserServiceInterface')
-    private readonly userService: UserService,
+    private readonly userService: UserServiceInterface,
   ) {}
 
   @Post()

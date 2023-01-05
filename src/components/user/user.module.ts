@@ -7,6 +7,7 @@ import { UserController } from './user.controller';
 
 @Module({
   imports: [TypeOrmModule.forFeature([User])],
+  // We register the provider with the Nest Ioc container
   providers: [
     {
       provide: 'UserServiceInterface',
