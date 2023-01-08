@@ -1,4 +1,6 @@
 import { User } from './../user.entity';
-import { BaseInterfaceRepository } from './../../../repositories/base/base.interface.repository';
+import { IBaseRepository } from './../../../repositories/base/base.interface.repository';
 
-export interface UserRepositoryInterface extends BaseInterfaceRepository<User> {}
+export const USER_REPOSITORY = 'USER REPOSITORY';
+
+export interface IUserRepository extends IBaseRepository<User> {}

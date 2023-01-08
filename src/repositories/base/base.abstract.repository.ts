@@ -1,7 +1,7 @@
-import { DeleteResult, FindManyOptions, FindOptionsWhere, Repository, UpdateResult } from 'typeorm';
-import { BaseInterfaceRepository } from './base.interface.repository';
+import { DeleteResult, FindOptionsWhere, Repository, UpdateResult } from 'typeorm';
+import { IBaseRepository } from './base.interface.repository';
 
-export abstract class BaseAbstractRepository<T> implements BaseInterfaceRepository<T> {
+export abstract class BaseAbstractRepository<T> implements IBaseRepository<T> {
   // protected repository: Repository<T>;
 
   // protected constructor(repository: Repository<T>) {
