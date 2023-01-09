@@ -37,6 +37,10 @@ export class UserService implements IUserService {
     const user = new User();
     user.username = userDto.username;
     user.password = userDto.password;
-    return await this.userRepository.create(user);
+    try {
+      return await this.userRepository.create(user);
+    } catch (error) {
+      throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
   }
 }
