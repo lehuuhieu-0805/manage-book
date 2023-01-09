@@ -17,7 +17,9 @@ export abstract class BaseAbstractRepository<T> implements IBaseRepository<T> {
   }
 
   async findById(id: string): Promise<T> {
-    return await this.repository.findOneBy({ id } as unknown as FindOptionsWhere<T>);
+    return await this.repository.findOneBy({
+      id,
+    } as unknown as FindOptionsWhere<T>);
   }
 
   async findAll(): Promise<T[]> {

@@ -6,7 +6,10 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
 @Injectable()
-export class UserRepository extends BaseAbstractRepository<User> implements IUserRepository {
+export class UserRepository
+  extends BaseAbstractRepository<User>
+  implements IUserRepository
+{
   constructor(
     @InjectRepository(User)
     private readonly userRepository: Repository<User>,

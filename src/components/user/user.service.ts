@@ -2,7 +2,10 @@ import { MessageException } from './../../constants/common';
 import { Inject, Injectable, HttpException, HttpStatus } from '@nestjs/common';
 import { CreateUserDto } from './dto/createUser.dto';
 import { UpdateUserDto } from './dto/updateUser.dto';
-import { IUserRepository, USER_REPOSITORY } from './interface/user.repository.interface';
+import {
+  IUserRepository,
+  USER_REPOSITORY,
+} from './interface/user.repository.interface';
 import { IUserService } from './interface/user.service.interface';
 import { User } from './user.entity';
 
@@ -18,7 +21,10 @@ export class UserService implements IUserService {
   async update(id: string, userDto: UpdateUserDto): Promise<User> {
     const user: User = await this.userRepository.findById(id);
     if (!user) {
-      throw new HttpException(MessageException.USER_NOT_EXISTED, HttpStatus.NOT_FOUND);
+      throw new HttpException(
+        MessageException.USER_NOT_EXISTED,
+        HttpStatus.NOT_FOUND,
+      );
     }
 
     user.password = userDto.password;
