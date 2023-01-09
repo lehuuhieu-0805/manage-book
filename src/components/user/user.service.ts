@@ -12,6 +12,11 @@ export class UserService implements IUserService {
     @Inject(USER_REPOSITORY)
     private readonly userRepository: IUserRepository,
   ) {}
+
+  async findById(id: string): Promise<User> {
+    return await this.userRepository.findById(id);
+  }
+
   async create(userDto: CreateUserDto): Promise<User> {
     const user = new User();
     user.username = userDto.username;

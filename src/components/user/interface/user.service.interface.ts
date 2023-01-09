@@ -7,4 +7,5 @@ export const USER_SERVICE = 'USER SERVICE';
 
 export interface IUserService {
   create(userDto: CreateUserDto): Promise<User>;
+  findById(id: string): Promise<User>;
 }
