@@ -1,4 +1,4 @@
-import { DeleteResult, FindOptionsWhere, Repository, UpdateResult } from 'typeorm';
+import { DeleteResult, FindOptionsWhere, Repository } from 'typeorm';
 import { IBaseRepository } from './base.interface.repository';
 
 export abstract class BaseAbstractRepository<T> implements IBaseRepository<T> {
@@ -28,7 +28,8 @@ export abstract class BaseAbstractRepository<T> implements IBaseRepository<T> {
     return await this.repository.delete(id);
   }
 
-  async update(id: string, data: T | any): Promise<UpdateResult> {
-    return await this.repository.update(id, data);
+  async update(id: string, data: T | any): Promise<T> {
+    await this.repository.update(id, data);
+    return await this.findById(id);
   }
 }
