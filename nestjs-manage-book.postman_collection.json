@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "4b4a0a5e-09a7-45a8-9ba6-b59717947267",
+		"_postman_id": "e09a6c24-a9d5-4afd-b673-786cbc6cf441",
 		"name": "nestjs-manage-book",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "15605529"
@@ -33,6 +33,51 @@
 					],
 					"path": [
 						"user"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get user by id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/user/6a8f94d5-6a8f-ed11-86e7-fe2d43792a5e",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"user",
+						"6a8f94d5-6a8f-ed11-86e7-fe2d43792a5e"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update password of user",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"password\": \"1234\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/user/52d41bf1-5483-ed11-86e6-9cda3eb0a193",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"user",
+						"52d41bf1-5483-ed11-86e6-9cda3eb0a193"
 					]
 				}
 			},
