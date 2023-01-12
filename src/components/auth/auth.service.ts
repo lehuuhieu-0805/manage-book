@@ -19,7 +19,12 @@ export class AuthService implements IAuthService {
     try {
       const saltRounds = 10;
       signUpDto.password = await bcrypt.hash(signUpDto.password, saltRounds);
-      return this.authRepository.signUp(signUpDto);
+
+      const user = new User();
+      user.username = signUpDto.username;
+      user.password = signUpDto.password;
+
+      return this.authRepository.create(user);
     } catch (error) {
       throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
     }
