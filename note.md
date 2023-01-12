@@ -1,4 +1,4 @@
-### NestJs
+## NestJs
 
 Module là nơi liên kết giữa interfaces và implementation (thông qua cơ chế DI). Implementation chỉ được thấy trong module, bên ngoài module không truy cập được.
 
@@ -9,15 +9,25 @@ Interfaces thì có hai loại:
 
 Về giao tiếp các modules, mỗi module đảm nhiệm business domain khác nhau, các module giao tiếp với nhau thông qua các interfaces được export. Ngoài ra, không có khái niệm DI giữa các modules với nhau.
 
+#### Command
+
+- Generate module
+
+```
+nest g <schematic> [name] [path]
+
+See more: nest -h
+```
+
 #### DI with interface in Nestjs
 
 ```
 https://jasonwhite.xyz/posts/2020/10/20/nestjs-dependency-injection-decoupling-services-with-interfaces/
 ```
 
-### OOP
+## OOP
 
 ```
-1 class just can implement 1 abstract class
-1 class can implement many interface
+1. 1 class just can implement 1 abstract class
+2. 1 class can implement many interface
 ```
