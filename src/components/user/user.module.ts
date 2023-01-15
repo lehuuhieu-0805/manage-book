@@ -23,5 +23,6 @@ import { UserController } from './user.controller';
     },
   ],
   controllers: [UserController],
+  exports: [USER_REPOSITORY],
 })
 export class UserModule {}

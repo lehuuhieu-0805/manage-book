@@ -5,3 +5,8 @@ export enum MessageException {
 export enum APIPrefix {
   VERSION = 'api/v1',
 }
+
+// secret key should be stored in environment variable
+export const jwtConstants = {
+  secret: 'secretKey',
+};

@@ -1,19 +1,34 @@
 import { HttpException, HttpStatus, Inject, Injectable } from '@nestjs/common';
+import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
 import { User } from '../user/user.entity';
-import { SignUpDto } from './dto/signUp.dto';
 import {
-  AUTH_REPOSITORY,
-  IAuthRepository,
-} from './interface/auth.repository.interface';
+  IUserRepository,
+  USER_REPOSITORY,
+} from './../user/interface/user.repository.interface';
+import { SignUpDto } from './dto/signUp.dto';
 import { IAuthService } from './interface/auth.service.interface';
 
 @Injectable()
 export class AuthService implements IAuthService {
   constructor(
-    @Inject(AUTH_REPOSITORY)
-    private readonly authRepository: IAuthRepository,
+    @Inject(USER_REPOSITORY)
+    private readonly userRepository: IUserRepository,
+    private readonly jwtService: JwtService,
   ) {}
+
+  async validateUser(username: string, password: string): Promise<User | null> {
+    const user = await this.userRepository.getUserByUsername(username);
+    if (user && (await bcrypt.compare(password, user.password))) {
+      return user;
+    }
+    return null;
+  }
+
+  async signIn(user: any): Promise<{ access_token: string }> {
+    const payload = { username: user.username, sub: user.id };
+    return { access_token: this.jwtService.sign(payload) };
+  }
 
   async signUp(signUpDto: SignUpDto): Promise<User> {
     try {
@@ -24,7 +39,7 @@ export class AuthService implements IAuthService {
       user.username = signUpDto.username;
       user.password = signUpDto.password;
 
-      return this.authRepository.create(user);
+      return this.userRepository.create(user);
     } catch (error) {
       throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
     }
