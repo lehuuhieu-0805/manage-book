@@ -6,6 +6,7 @@ import {
   IUserRepository,
   USER_REPOSITORY,
 } from './../user/interface/user.repository.interface';
+import { SignInDto } from './dto/signIn.dto';
 import { SignUpDto } from './dto/signUp.dto';
 import { IAuthService } from './interface/auth.service.interface';
 
@@ -25,8 +26,11 @@ export class AuthService implements IAuthService {
     return null;
   }
 
-  async signIn(user: any): Promise<{ access_token: string }> {
-    const payload = { username: user.username, sub: user.id };
+  async signIn(signInDto: SignInDto): Promise<{ access_token: string }> {
+    const user = await this.userRepository.getUserByUsername(
+      signInDto.username,
+    );
+    const payload = { username: user.username, id: user.id };
     return { access_token: this.jwtService.sign(payload) };
   }
 
