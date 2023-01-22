@@ -9,6 +9,8 @@ Interfaces thì có hai loại:
 
 Về giao tiếp các modules, mỗi module đảm nhiệm business domain khác nhau, các module giao tiếp với nhau thông qua các interfaces được export. Ngoài ra, không có khái niệm DI giữa các modules với nhau.
 
+Trong passport, mỗi phương thức xác thực sẽ được gọi là một strategy.
+
 #### Command
 
 - Generate module
