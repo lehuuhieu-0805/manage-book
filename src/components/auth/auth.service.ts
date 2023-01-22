@@ -1,3 +1,4 @@
+import { IJwtPayload } from './jwtPayload.interface';
 import { HttpException, HttpStatus, Inject, Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
@@ -30,7 +31,7 @@ export class AuthService implements IAuthService {
     const user = await this.userRepository.getUserByUsername(
       signInDto.username,
     );
-    const payload = { username: user.username, id: user.id };
+    const payload: IJwtPayload = { username: user.username };
     return { access_token: this.jwtService.sign(payload) };
   }
 
