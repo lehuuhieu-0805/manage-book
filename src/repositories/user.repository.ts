@@ -20,6 +20,14 @@ export class UserRepository
     super(userRepository);
   }
 
+  async updatePassword(id: string, password: string): Promise<void> {
+    await this.userRepository
+      .createQueryBuilder()
+      .update({ password: password })
+      .where('id = :id', { id: id })
+      .execute();
+  }
+
   async getUserByUsername(username: string): Promise<User | undefined> {
     return await this.userRepository.findOneBy({ username });
   }

@@ -1,5 +1,6 @@
+import { HttpException, HttpStatus, Inject, Injectable } from '@nestjs/common';
+import * as bcrypt from 'bcrypt';
 import { MessageException } from './../../constants/common';
-import { Inject, Injectable, HttpException, HttpStatus } from '@nestjs/common';
 import { CreateUserDto } from './dto/createUser.dto';
 import { UpdateUserDto } from './dto/updateUser.dto';
 import {
@@ -27,9 +28,13 @@ export class UserService implements IUserService {
       );
     }
 
-    user.password = userDto.password;
     try {
-      return await this.userRepository.update(id, user);
+      const saltRounds = 10;
+      const password = await bcrypt.hash(userDto.password, saltRounds);
+
+      await this.userRepository.updatePassword(id, password);
+
+      return await this.userRepository.findById(id);
     } catch (error) {
       throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
     }
