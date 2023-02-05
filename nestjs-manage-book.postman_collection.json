@@ -10,7 +10,7 @@
 			"name": "User",
 			"item": [
 				{
-					"name": "create user",
+					"name": "create a user",
 					"request": {
 						"method": "POST",
 						"header": [],
@@ -127,6 +127,42 @@
 							"path": [
 								"books",
 								"5c57943c-a998-ed11-86e9-9cda3eb0a193"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create a book",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImhpZXUxIiwiaWF0IjoxNjc1NTcwNTE3LCJleHAiOjE2NzU1NzQxMTd9.NUmZL6ESXE9FcMaiPyZ59uUlqDUP6y_JdROszd2InF4",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"oke\",\r\n    \"description\": \"111\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/books",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"books"
 							]
 						}
 					},
