@@ -8,6 +8,7 @@ import {
   Post,
   UseGuards,
   Put,
+  Delete,
 } from '@nestjs/common';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { GetUser } from '../auth/getUser.decorator';
@@ -50,5 +51,12 @@ export class BookController {
     @Body() bookDto: UpdateBookDto,
   ): Promise<Book> {
     return await this.bookService.update(id, bookDto);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Delete(':id')
+  @ApiResponse({ status: 200, description: 'Delete a books successfully' })
+  async delete(@Param('id') id: string): Promise<void> {
+    await this.bookService.delete(id);
   }
 }

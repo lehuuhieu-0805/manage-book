@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { UpdateBookDto } from 'src/components/book/dto/updateBook.dto';
-import { Repository, UpdateResult } from 'typeorm';
+import { DeleteResult, Repository, UpdateResult } from 'typeorm';
 import { Book } from './../components/book/book.entity';
 import { IBookRepository } from './../components/book/interface/book.repository.interface';
 import { BaseAbstractRepository } from './base/base.abstract.repository';
@@ -16,6 +16,12 @@ export class BookRepository
     private readonly bookRepository: Repository<Book>,
   ) {
     super(bookRepository);
+  }
+
+  async deleteBook(id: string): Promise<number> {
+    const result: DeleteResult = await this.bookRepository.delete(id);
+
+    return result.affected;
   }
 
   async updateBook(id: string, updateBookDto: UpdateBookDto): Promise<number> {
