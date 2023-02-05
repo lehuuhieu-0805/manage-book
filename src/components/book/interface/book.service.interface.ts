@@ -9,4 +9,5 @@ export interface IBookService {
   create(bookDto: CreateBookDto, user: User): Promise<Book>;
   getById(id: string): Promise<Book>;
   update(id: string, updateBookDto: UpdateBookDto): Promise<Book>;
+  delete(id: string): Promise<void>;
 }

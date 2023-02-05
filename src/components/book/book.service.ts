@@ -25,6 +25,20 @@ export class BookService implements IBookService {
     private readonly userRepository: IUserRepository,
   ) {}
 
+  async delete(id: string): Promise<void> {
+    let affected = 0;
+    try {
+      affected = await this.bookRepository.deleteBook(id);
+    } catch (error) {
+      console.log(2);
+      throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    if (affected === 0) {
+      throw new NotFoundException();
+    }
+  }
+
   async update(id: string, updateBookDto: UpdateBookDto): Promise<Book> {
     try {
       const affected: number = await this.bookRepository.updateBook(

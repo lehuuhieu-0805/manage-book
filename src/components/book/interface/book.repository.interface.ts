@@ -6,4 +6,5 @@ export const BOOK_REPOSITORY = 'BOOK REPOSITORY';
 
 export interface IBookRepository extends IBaseRepository<Book> {
   updateBook(id: string, updateBookDto: UpdateBookDto): Promise<number>;
+  deleteBook(id: string): Promise<number>;
 }
