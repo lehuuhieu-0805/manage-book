@@ -1,8 +1,8 @@
+import { Inject, Injectable, NotFoundException } from '@nestjs/common';
 import {
-  USER_REPOSITORY,
   IUserRepository,
+  USER_REPOSITORY,
 } from './../user/interface/user.repository.interface';
-import { Inject, Injectable } from '@nestjs/common';
 import { User } from './../user/user.entity';
 import { Book } from './book.entity';
 import { CreateBookDto } from './dto/createBook.dto';
@@ -21,6 +21,14 @@ export class BookService implements IBookService {
     @Inject(USER_REPOSITORY)
     private readonly userRepository: IUserRepository,
   ) {}
+
+  async getById(id: string): Promise<Book> {
+    const book: Book = await this.bookRepository.findById(id);
+    if (book) {
+      return book;
+    }
+    throw new NotFoundException();
+  }
 
   async create(bookDto: CreateBookDto, user: User): Promise<Book> {
     const book = new Book();

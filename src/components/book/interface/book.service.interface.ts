@@ -6,4 +6,5 @@ export const BOOK_SERVICE = 'BOOK SERVICE';
 
 export interface IBookService {
   create(bookDto: CreateBookDto, user: User): Promise<Book>;
+  getById(id: string): Promise<Book>;
 }
