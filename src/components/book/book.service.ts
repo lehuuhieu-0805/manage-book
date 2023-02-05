@@ -1,4 +1,6 @@
 import { Inject, Injectable, NotFoundException } from '@nestjs/common';
+import { HttpStatus } from '@nestjs/common/enums';
+import { HttpException } from '@nestjs/common/exceptions';
 import {
   IUserRepository,
   USER_REPOSITORY,
@@ -6,6 +8,7 @@ import {
 import { User } from './../user/user.entity';
 import { Book } from './book.entity';
 import { CreateBookDto } from './dto/createBook.dto';
+import { UpdateBookDto } from './dto/updateBook.dto';
 import {
   BOOK_REPOSITORY,
   IBookRepository,
@@ -21,6 +24,21 @@ export class BookService implements IBookService {
     @Inject(USER_REPOSITORY)
     private readonly userRepository: IUserRepository,
   ) {}
+
+  async update(id: string, updateBookDto: UpdateBookDto): Promise<Book> {
+    try {
+      const affected: number = await this.bookRepository.updateBook(
+        id,
+        updateBookDto,
+      );
+
+      if (affected !== 0) {
+        return await this.bookRepository.findById(id);
+      }
+    } catch (error) {
+      throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+  }
 
   async getById(id: string): Promise<Book> {
     const book: Book = await this.bookRepository.findById(id);

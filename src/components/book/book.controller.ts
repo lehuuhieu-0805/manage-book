@@ -1,3 +1,4 @@
+import { UpdateBookDto } from './dto/updateBook.dto';
 import {
   Body,
   Controller,
@@ -6,6 +7,7 @@ import {
   Param,
   Post,
   UseGuards,
+  Put,
 } from '@nestjs/common';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { GetUser } from '../auth/getUser.decorator';
@@ -38,5 +40,15 @@ export class BookController {
   @ApiResponse({ status: 200, description: 'Get a books successfully' })
   async getById(@Param('id') id: string): Promise<Book> {
     return await this.bookService.getById(id);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Put(':id')
+  @ApiResponse({ status: 200, description: 'Update a books successfully' })
+  async update(
+    @Param('id') id: string,
+    @Body() bookDto: UpdateBookDto,
+  ): Promise<Book> {
+    return await this.bookService.update(id, bookDto);
   }
 }
